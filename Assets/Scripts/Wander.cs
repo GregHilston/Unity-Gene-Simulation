@@ -35,4 +35,11 @@ public class Wander : MonoBehaviour {
             }
         }
     }
+
+    void OnDrawGizmosSelected() {
+        if (this.destination != null) {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, (Vector3)destination);
+        }
+    }
 }
