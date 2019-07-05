@@ -36,9 +36,16 @@ public class Wander : MonoBehaviour {
         }
     }
 
+
+
     void OnDrawGizmosSelected() {
+        Color gizmoColor = Color.blue;
+
+        UnityEditor.Handles.color = gizmoColor;
+        UnityEditor.Handles.DrawWireDisc(this.transform.position, new Vector3(0, 1, 0), this.genes.radiusOfSight);
+
         if (this.destination != null) {
-            Gizmos.color = Color.blue;
+            Gizmos.color = gizmoColor;
             Gizmos.DrawLine(transform.position, (Vector3)destination);
         }
     }
