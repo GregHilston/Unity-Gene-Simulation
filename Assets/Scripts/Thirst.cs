@@ -42,7 +42,6 @@ public class Thirst : MonoBehaviour {
         if (targetThirst >= this._maxThirst) {
             this._currentThirst = 0;
             onDehydration.Invoke();
-            Destroy(gameObject);
         } else {
             this._currentThirst = targetThirst;
         }

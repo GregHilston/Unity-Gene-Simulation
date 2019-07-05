@@ -42,7 +42,6 @@ public class Hunger : MonoBehaviour {
         if (targetHunger >= this._maxHunger) {
             this._currentHunger = 0;
             onStarve.Invoke();
-            Destroy(gameObject);
         } else {
             this._currentHunger = targetHunger;
         }
