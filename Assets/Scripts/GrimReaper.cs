@@ -8,20 +8,14 @@ public class GrimReaper : MonoBehaviour {
     }
 
     public void onStarve(GameObject gameObject) {
-        Debug.Log("onStarve");
-
         this.onAnyDeath(gameObject);
     }
 
     public void onDehydration(GameObject gameObjec) {
-        Debug.Log("onDehydration");
-
         this.onAnyDeath(gameObject);
     }
 
     public void onLonliness(GameObject gameObjec) {
-        Debug.Log("onLonliness");
-
         this.onAnyDeath(gameObject);
     }
 }
