@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(GrimReaper))]
 public class Hunger : MonoBehaviour {
     [SerializeField]
     private int _maxHunger;
@@ -26,15 +27,11 @@ public class Hunger : MonoBehaviour {
         }
     }
 
-    public void decreaseHungger(int amount) {
+    public void decreaseHunger(int amount) {
         if (amount <= 0) return;
 
-        if (this.currentHunger > amount) {
-        this._currentHunger -= amount;
-        } else {
-        this._currentHunger = 0;
-            onStarve.Invoke();
-            Destroy(gameObject);
+        if (this._currentHunger > amount) {
+            this._currentHunger -= amount;
         }
     }
 
@@ -43,7 +40,9 @@ public class Hunger : MonoBehaviour {
         
         var targetHunger = this._currentHunger + amount;
         if (targetHunger >= this._maxHunger) {
-            this._currentHunger = this._maxHunger;
+            this._currentHunger = 0;
+            onStarve.Invoke();
+            Destroy(gameObject);
         } else {
             this._currentHunger = targetHunger;
         }
