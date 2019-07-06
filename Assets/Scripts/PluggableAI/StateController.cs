@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [SelectionBase]
 [RequireComponent(typeof(Genes))]
@@ -19,12 +20,19 @@ public class StateController : MonoBehaviour {
     private Reproduce reproduce;
     private WanderAction wander;
 
+    [SerializeField]
+    private Text text;
+
     void Start() {
         this.genes = GetComponent<Genes>();
 
         this.hunger = GetComponent<Hunger>();
         this.thirst = GetComponent<Thirst>();
         this.reproduce = GetComponent<Reproduce>();
+
+        if(this.text != null) {
+            this.text.text = this.currentState.name;
+        }
     }
 
     void Update() {
@@ -38,6 +46,11 @@ public class StateController : MonoBehaviour {
     public void transitionToState(State nextState) {
         if (nextState != remainState) {
             currentState = nextState;
+
+            if (this.text != null) {
+                this.text.text = nextState.name;
+            }
+
             onExitState();
         }
     }
