@@ -729,6 +729,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: {fileID: 11400000, guid: fd30397391576e54e921bdb479af654e, type: 2}
+  remainState: {fileID: 0}
+  stateTimeElapsed: 0
 --- !u!1 &511049955
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51173ef08e6852947bdbc3aee89aca4c, type: 3}
-  m_Name: WanderState
+  m_Script: {fileID: 11500000, guid: 5606345dc74576344b8f7e0fb9f062a3, type: 3}
+  m_Name: HuntWaterAction
   m_EditorClassIdentifier: 
-  actions:
-  - {fileID: 11400000, guid: 52f77410e6a486e45b8187373d0169bf, type: 2}
