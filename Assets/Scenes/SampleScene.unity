@@ -484,7 +484,6 @@ GameObject:
   - component: {fileID: 502566229}
   - component: {fileID: 502566225}
   - component: {fileID: 502566221}
-  - component: {fileID: 502566222}
   - component: {fileID: 502566224}
   - component: {fileID: 502566223}
   - component: {fileID: 502566226}
@@ -586,18 +585,6 @@ MonoBehaviour:
   hungerBar: {fileID: 511049955}
   thirstBar: {fileID: 454899832}
   reproduceBar: {fileID: 2057368249}
---- !u!114 &502566222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 502566216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7518d14a8bceb304c91f7a67153ce6c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &502566223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4223be69f18fe44b75d2b79290c424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentActivity: 0
+  currentState: {fileID: 11400000, guid: fd30397391576e54e921bdb479af654e, type: 2}
 --- !u!1 &511049955
 GameObject:
   m_ObjectHideFlags: 0
