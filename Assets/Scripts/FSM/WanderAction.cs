@@ -36,14 +36,16 @@ public class WanderAction : Action {
     public override void DrawGizmos() {
         Color gizmoColor = Color.blue;
 
-        if (this.lastStateController.getGenes() != null) {
-            UnityEditor.Handles.color = gizmoColor;
-            UnityEditor.Handles.DrawWireDisc(this.lastStateController.transform.position, new Vector3(0, 1, 0), this.lastStateController.getGenes().radiusOfSight);
-        }
+        if (this.lastStateController != null) {
+            if (this.lastStateController.getGenes() != null) {
+                UnityEditor.Handles.color = gizmoColor;
+                UnityEditor.Handles.DrawWireDisc(this.lastStateController.transform.position, new Vector3(0, 1, 0), this.lastStateController.getGenes().radiusOfSight);
+            }
 
-        if (this.destination != null) {
-            Gizmos.color = gizmoColor;
-            Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)destination);
+            if (this.destination != null) {
+                Gizmos.color = gizmoColor;
+                Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)destination);
+            }
         }
     }
 }
