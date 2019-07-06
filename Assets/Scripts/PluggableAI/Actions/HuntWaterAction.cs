@@ -20,8 +20,13 @@ public class HuntWaterAction : Action {
             this.lastStateController = stateController;
 
             if (this.destination == null) {
-                int allLayers = -1;
-                this.destination = new Vector3(1.0f, 1.0f, 1.0f);
+                Collider[] hitColliders = Physics.OverlapSphere(stateController.transform.position, stateController.getGenes().radiusOfSight);
+                for(int i = 0; i < hitColliders.Length; i++) {
+                    if(hitColliders[i].gameObject.GetComponent<Water>() != null) {
+                        this.destination = hitColliders[i].gameObject.transform.position;
+                        break;
+                    }
+                }
             }
 
             float step = stateController.getGenes().movementSpeed * Time.deltaTime;
