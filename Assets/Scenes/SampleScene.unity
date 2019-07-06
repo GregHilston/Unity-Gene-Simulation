@@ -744,6 +744,7 @@ MonoBehaviour:
   currentState: {fileID: 11400000, guid: fd30397391576e54e921bdb479af654e, type: 2}
   remainState: {fileID: 0}
   stateTimeElapsed: 0
+  text: {fileID: 535988012}
 --- !u!1 &511049955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,7 +1932,7 @@ PrefabInstance:
     - target: {fileID: 7485487597998972413, guid: ded61a37e6c12a3439703ff12c1cb1de,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.01
+      value: -12.09
       objectReference: {fileID: 0}
     - target: {fileID: 7485487597998972413, guid: ded61a37e6c12a3439703ff12c1cb1de,
         type: 3}
