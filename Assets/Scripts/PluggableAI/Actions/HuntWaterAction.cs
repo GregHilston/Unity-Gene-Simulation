@@ -44,6 +44,11 @@ public class HuntWaterAction : Action {
                 this.destination = null;
                 Destroy(this.waterTooDrink);
                 this.waterTooDrink = null;
+
+                Thirst thirst = stateController.GetComponent<Thirst>();
+                if(thirst != null) {
+                    thirst.decreaseThirst(20);
+                }
             }
         }
     }

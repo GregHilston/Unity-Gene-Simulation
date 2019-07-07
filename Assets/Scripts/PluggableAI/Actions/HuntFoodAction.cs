@@ -44,6 +44,11 @@ public class HuntFoodAction : Action {
                 this.destination = null;
                 Destroy(this.foodTooEat);
                 this.foodTooEat = null;
+
+                Hunger hunger = stateController.GetComponent<Hunger>();
+                if (hunger != null) {
+                    hunger.decreaseHunger(20);
+                }
             }
         }
     }

@@ -27,7 +27,7 @@ public class Thirst : MonoBehaviour {
         }
     }
 
-    public void decreaseHungger(int amount) {
+    public void decreaseThirst(int amount) {
         if (amount <= 0) return;
 
         if (this._currentThirst > amount) {
