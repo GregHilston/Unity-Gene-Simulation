@@ -10,11 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51173ef08e6852947bdbc3aee89aca4c, type: 3}
-  m_Name: WanderState
+  m_Name: HuntFoodState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 52f77410e6a486e45b8187373d0169bf, type: 2}
-  transitions:
-  - decision: {fileID: 11400000, guid: 273331070bed10d498a5011a48506a8d, type: 2}
-    trueState: {fileID: 11400000, guid: 7228eb3ab9683a34fbabb4e765d649fc, type: 2}
-    falseState: {fileID: 11400000}
+  - {fileID: 11400000, guid: 2a2b4113699adb647830e07f48bd00e6, type: 2}
+  transitions: []
