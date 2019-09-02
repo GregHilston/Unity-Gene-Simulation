@@ -28,11 +28,8 @@ public class HuntWaterAction : Action {
 
             // found water
             if (stateController.transform.position == actionState.destination && actionState.waterToDrink != null && actionState.waterToDrink.transform.position == actionState.destination) {
-                Debug.Log(stateController.name + " drank water");
                 Thirst thirst = stateController.GetComponent<Thirst>();
                 if(thirst != null) {
-                    Debug.Log("decreasing thirst");
-
                     thirst.decreaseThirst(20);
                 }
             }

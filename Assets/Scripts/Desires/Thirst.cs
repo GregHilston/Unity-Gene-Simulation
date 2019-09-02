@@ -28,8 +28,6 @@ public class Thirst : MonoBehaviour {
     }
 
     public void decreaseThirst(int amount) {
-        Debug.Log("amount" + amount);
-
         if (amount <= 0) {
             return;
         }
