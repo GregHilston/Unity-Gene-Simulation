@@ -5,11 +5,10 @@ using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/HuntWaterAction")]
 public class HuntWaterAction : Action {
-    private HuntWaterActionState hunterWaterActionState = new HuntWaterActionState();
     private GameObject waterTooDrink;
     private StateController lastStateController;
 
-    public override void act(StateController stateController) {
+    public override void act(StateController stateController, ActionState actionState) {
         if (stateController.getGenes() != null) {
             this.lastStateController = stateController;
 
@@ -17,23 +16,23 @@ public class HuntWaterAction : Action {
                 Collider[] hitColliders = Physics.OverlapSphere(stateController.transform.position, stateController.getGenes().radiusOfSight);
                 for(int i = 0; i < hitColliders.Length; i++) {
                     if(hitColliders[i].gameObject.GetComponent<Water>() != null) {
-                        hunterWaterActionState.destination = hitColliders[i].gameObject.transform.position;
+                        actionState.destination = hitColliders[i].gameObject.transform.position;
                         this.waterTooDrink = hitColliders[i].gameObject;
                         break;
                     }
                 }
 
                 // We failed to find water, so we'll move somewhere random only if we've arrived at that random spot already
-                if(hunterWaterActionState.destination == null) {
-                    hunterWaterActionState.destination = stateController.randomNavCircle(stateController.getGenes().radiusOfSight);
+                if(actionState.destination == null) {
+                    actionState.destination = this.randomNavCircle(stateController.transform.position, stateController.getGenes().radiusOfSight);
                 }
             }
 
             float step = stateController.getGenes().movementSpeed * Time.deltaTime;
-            stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)hunterWaterActionState.destination, step);
+            stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)actionState.destination, step);
 
-            if (stateController.transform.position == hunterWaterActionState.destination) {
-                hunterWaterActionState.destination = null;
+            if (stateController.transform.position == actionState.destination) {
+                actionState.destination = null;
                 Destroy(this.waterTooDrink);
                 this.waterTooDrink = null;
 
@@ -54,10 +53,10 @@ public class HuntWaterAction : Action {
                 UnityEditor.Handles.DrawWireDisc(this.lastStateController.transform.position, new Vector3(0, 1, 0), this.lastStateController.getGenes().radiusOfSight);
             }
 
-            if (hunterWaterActionState.destination != null) {
-                Gizmos.color = gizmoColor;
-                Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)hunterWaterActionState.destination);
-            }
+            // if (hunterWaterActionState.destination != null) {
+                // Gizmos.color = gizmoColor;
+                // Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)hunterWaterActionState.destination);
+            // }
         }
     }
 }

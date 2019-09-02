@@ -8,20 +8,12 @@ public class WanderAction : Action {
     private WanderActionState wanderActionState = new WanderActionState();
     private StateController lastStateController;
 
-    private Vector3 randomNavCircle(StateController stateController, Vector3 origin, float distance, int layermask) {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitCircle * distance;
-        
-        // Converting the Vector3 from a X Y value to only a X Z value
-        return new Vector3(randomDirection.x, stateController.transform.position.y, randomDirection.y);
-    }
-
-    public override void act(StateController stateController) {
+    public override void act(StateController stateController, ActionState actionState) {
         if (stateController.getGenes() != null) {
             this.lastStateController = stateController;
 
             if (wanderActionState.destination == null) {
-                int allLayers = -1;
-                wanderActionState.destination = this.randomNavCircle(stateController, stateController.transform.position, stateController.getGenes().radiusOfSight, allLayers);
+                wanderActionState.destination = this.randomNavCircle(stateController.transform.position, stateController.getGenes().radiusOfSight);
             }
 
             float step = stateController.getGenes().movementSpeed * Time.deltaTime;
@@ -42,10 +34,10 @@ public class WanderAction : Action {
                 UnityEditor.Handles.DrawWireDisc(this.lastStateController.transform.position, new Vector3(0, 1, 0), this.lastStateController.getGenes().radiusOfSight);
             }
 
-            if (wanderActionState.destination != null) {
-                Gizmos.color = gizmoColor;
-                Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)wanderActionState.destination);
-            }
+            // if (wanderActionState.destination != null) {
+                // Gizmos.color = gizmoColor;
+                // Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)wanderActionState.destination);
+            // }
         }
     }
 }

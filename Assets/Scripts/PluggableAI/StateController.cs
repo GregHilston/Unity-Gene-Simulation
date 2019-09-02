@@ -17,7 +17,7 @@ public class StateController : MonoBehaviour {
     private Hunger hunger;
     private Thirst thirst;
     private Reproduce reproduce;
-    private WanderAction wander;
+    private ActionState actionState = new ActionState();
 
     [SerializeField]
     private Text text;
@@ -35,7 +35,7 @@ public class StateController : MonoBehaviour {
     }
 
     void Update() {
-        this.currentState.updateState(this);
+        this.currentState.updateState(this, actionState);
     }
 
     public Genes getGenes() {
@@ -55,15 +55,6 @@ public class StateController : MonoBehaviour {
     public bool checkIfCountDownElapsed(float duration) {
         stateTimeElapsed += Time.deltaTime;
         return (stateTimeElapsed >= duration);
-    }
-
-    public Vector3 randomNavCircle(float distance) {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitCircle * distance;
-
-        Debug.Log("Made a randomDirection " + randomDirection);
-
-        // Converting the Vector3 from a X Y value to only a X Z value
-        return new Vector3(randomDirection.x, this.transform.position.y, randomDirection.y);
     }
 
     private void onExitState() {

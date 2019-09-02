@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HuntFoodActionState {
+public class ActionState {
     public Vector3? destination;
 }

@@ -7,14 +7,14 @@ public class State : ScriptableObject {
     public Action[] actions;
     public Transition[] transitions;
 
-    public void updateState(StateController controller) {
-        doActions(controller);
+    public void updateState(StateController controller, ActionState actionState) {
+        doActions(controller, actionState);
         checkTransitions(controller);
     }
 
-    private void doActions(StateController controller) {
+    private void doActions(StateController controller, ActionState actionState) {
         for (int i = 0; i < actions.Length; i++) {
-            actions[i].act(controller);
+            actions[i].act(controller, actionState);
         }
     }
 

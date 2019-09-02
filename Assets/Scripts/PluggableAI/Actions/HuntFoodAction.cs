@@ -5,18 +5,10 @@ using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/HuntFoodAction")]
 public class HuntFoodAction : Action {
-    private HuntFoodActionState huntFoodActionState = new HuntFoodActionState();
     private GameObject foodTooEat;
     private StateController lastStateController;
 
-    private Vector3 randomNavCircle(StateController stateController, Vector3 origin, float distance, int layermask) {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitCircle * distance;
-
-        // Converting the Vector3 from a X Y value to only a X Z value
-        return new Vector3(randomDirection.x, stateController.transform.position.y, randomDirection.y);
-    }
-
-    public override void act(StateController stateController) {
+    public override void act(StateController stateController, ActionState actionState) {
         if (stateController.getGenes() != null) {
             this.lastStateController = stateController;
 
@@ -24,24 +16,23 @@ public class HuntFoodAction : Action {
                 Collider[] hitColliders = Physics.OverlapSphere(stateController.transform.position, stateController.getGenes().radiusOfSight);
                 for (int i = 0; i < hitColliders.Length; i++) {
                     if (hitColliders[i].gameObject.GetComponent<Vegetation>() != null) {
-                        huntFoodActionState.destination = hitColliders[i].gameObject.transform.position;
+                        actionState.destination = hitColliders[i].gameObject.transform.position;
                         this.foodTooEat = hitColliders[i].gameObject;
                         break;
                     }
                 }
 
                 // We failed to find food, so we'll move somewhere random only if we've arrived at that random spot already
-                if (huntFoodActionState.destination == null) {
-                    int allLayers = -1;
-                    huntFoodActionState.destination = stateController.randomNavCircle(stateController.getGenes().radiusOfSight);
+                if (actionState.destination == null) {
+                    actionState.destination = this.randomNavCircle(stateController.transform.position, stateController.getGenes().radiusOfSight);
                 }
             }
 
             float step = stateController.getGenes().movementSpeed * Time.deltaTime;
-            stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)huntFoodActionState.destination, step);
+            stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)actionState.destination, step);
 
-            if (stateController.transform.position == huntFoodActionState.destination) {
-                huntFoodActionState.destination = null;
+            if (stateController.transform.position == actionState.destination) {
+                actionState.destination = null;
                 Destroy(this.foodTooEat);
                 this.foodTooEat = null;
 
@@ -62,10 +53,10 @@ public class HuntFoodAction : Action {
                 UnityEditor.Handles.DrawWireDisc(this.lastStateController.transform.position, new Vector3(0, 1, 0), this.lastStateController.getGenes().radiusOfSight);
             }
 
-            if (huntFoodActionState.destination != null) {
-                Gizmos.color = gizmoColor;
-                Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)huntFoodActionState.destination);
-            }
+            // if (huntFoodActionState.destination != null) {
+                // Gizmos.color = gizmoColor;
+                // Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)huntFoodActionState.destination);
+            // }
         }
     }
 }
