@@ -30,6 +30,7 @@ public class HuntWaterAction : Action {
 
             float step = stateController.getGenes().movementSpeed * Time.deltaTime;
             stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)actionState.destination, step);
+            Debug.Log(stateController.gameObject.transform.name + " moving towards " + actionState.destination);
 
             if (stateController.transform.position == actionState.destination) {
                 actionState.destination = null;
