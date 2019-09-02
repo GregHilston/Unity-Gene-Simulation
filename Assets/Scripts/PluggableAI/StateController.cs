@@ -69,6 +69,6 @@ public class StateController : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
-        this.currentState.drawGizmos(this.actionState);
+        this.currentState.drawGizmos(this, this.actionState);
     }
 }

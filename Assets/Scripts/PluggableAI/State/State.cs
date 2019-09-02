@@ -31,9 +31,9 @@ public class State : ScriptableObject {
         }
     }
 
-    public void drawGizmos(ActionState actionState) {
+    public void drawGizmos(StateController stateController, ActionState actionState) {
         for (int i = 0; i < actions.Length; i++) {
-            actions[i].drawGizmos(actionState);
+            actions[i].drawGizmos(stateController, actionState);
         }
     }
 }
