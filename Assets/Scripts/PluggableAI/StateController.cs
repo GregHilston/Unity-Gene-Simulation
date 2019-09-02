@@ -20,7 +20,10 @@ public class StateController : MonoBehaviour {
     private ActionState actionState = new ActionState();
 
     [SerializeField]
-    private Text text;
+    private Text nameText;
+
+    [SerializeField]
+    private Text currentStateText;
 
     void Start() {
         this.genes = GetComponent<Genes>();
@@ -29,8 +32,12 @@ public class StateController : MonoBehaviour {
         this.thirst = GetComponent<Thirst>();
         this.reproduce = GetComponent<Reproduce>();
 
-        if(this.text != null) {
-            this.text.text = this.currentState.name;
+        if(this.nameText != null) {
+            this.nameText.text = this.gameObject.transform.name;
+        }
+
+        if(this.currentStateText != null) {
+            this.currentStateText.text = this.currentState.name;
         }
     }
 
@@ -45,8 +52,8 @@ public class StateController : MonoBehaviour {
     public void transitionToState(State nextState) {
         currentState = nextState;
 
-        if (this.text != null) {
-            this.text.text = nextState.name;
+        if (this.currentStateText != null) {
+            this.currentStateText.text = nextState.name;
         }
 
         onExitState();
