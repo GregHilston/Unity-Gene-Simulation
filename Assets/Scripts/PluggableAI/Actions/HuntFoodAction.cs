@@ -44,7 +44,7 @@ public class HuntFoodAction : Action {
         }
     }
 
-    public override void drawGizmos() {
+    public override void drawGizmos(ActionState actionState) {
         Color gizmoColor = Color.blue;
 
         if (this.lastStateController != null) {
@@ -53,10 +53,10 @@ public class HuntFoodAction : Action {
                 UnityEditor.Handles.DrawWireDisc(this.lastStateController.transform.position, new Vector3(0, 1, 0), this.lastStateController.getGenes().radiusOfSight);
             }
 
-            // if (huntFoodActionState.destination != null) {
-                // Gizmos.color = gizmoColor;
-                // Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)huntFoodActionState.destination);
-            // }
+            if (actionState.destination != null) {
+                Gizmos.color = gizmoColor;
+                Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)actionState.destination);
+            }
         }
     }
 }

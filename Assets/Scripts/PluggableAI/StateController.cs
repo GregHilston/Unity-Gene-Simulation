@@ -35,7 +35,7 @@ public class StateController : MonoBehaviour {
     }
 
     void Update() {
-        this.currentState.updateState(this, actionState);
+        this.currentState.updateState(this, this.actionState);
     }
 
     public Genes getGenes() {
@@ -62,6 +62,6 @@ public class StateController : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
-        this.currentState.drawGizmos();
+        this.currentState.drawGizmos(this.actionState);
     }
 }
