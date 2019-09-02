@@ -26,15 +26,22 @@ public class HuntWaterAction : Action {
             float step = stateController.getGenes().movementSpeed * Time.deltaTime;
             stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)actionState.destination, step);
 
+            // found water
+            if (stateController.transform.position == actionState.destination && actionState.waterToDrink != null && actionState.waterToDrink.transform.position == actionState.destination) {
+                Debug.Log(stateController.name + " drank water");
+                Thirst thirst = stateController.GetComponent<Thirst>();
+                if(thirst != null) {
+                    Debug.Log("decreasing thirst");
+
+                    thirst.decreaseThirst(20);
+                }
+            }
+
+            // arrived at destination
             if (stateController.transform.position == actionState.destination) {
                 actionState.destination = null;
                 Destroy(actionState.waterToDrink);
                 actionState.waterToDrink = null;
-
-                Thirst thirst = stateController.GetComponent<Thirst>();
-                if(thirst != null) {
-                    thirst.decreaseThirst(20);
-                }
             }
         }
     }

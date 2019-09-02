@@ -28,15 +28,23 @@ public class Thirst : MonoBehaviour {
     }
 
     public void decreaseThirst(int amount) {
-        if (amount <= 0) return;
+        Debug.Log("amount" + amount);
 
-        if (this._currentThirst > amount) {
-            this._currentThirst -= amount;
+        if (amount <= 0) {
+            return;
+        }
+   
+        this._currentThirst -= amount;
+
+        if (this._currentThirst < 0) {
+            this._currentThirst = 0;
         }
     }
 
     public void increaseThirst(int amount) {
-        if (amount <= 0) return;
+        if (amount <= 0) {
+            return;
+        }
 
         var targetThirst = this._currentThirst + amount;
         if (targetThirst >= this._maxThirst) {
