@@ -20,7 +20,8 @@ public class MotherNature : MonoBehaviour {
     }
 
     private Vector3 randomPointInSquare(Vector3 center, Vector3 size) {
-       return center + new Vector3((Random.value - 0.5f) * size.x,(Random.value - 0.5f) * size.y,(Random.value - 0.5f) * size.z);
+       float groundFloor = 0.0f;
+       return center + new Vector3((Random.value - 0.5f) * size.x, groundFloor, (Random.value - 0.5f) * size.z);
     }
 
     private void placeGameObject(GameObject gameObject, Vector3 location) {
