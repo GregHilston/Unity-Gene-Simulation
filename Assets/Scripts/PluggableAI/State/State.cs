@@ -24,6 +24,7 @@ public class State : ScriptableObject {
 
             if (decisionSucceeded) {
                 controller.transitionToState(transitions[i].trueState);
+                return;
             } else {
                 controller.transitionToState(transitions[i].falseState);
             }

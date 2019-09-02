@@ -9,9 +9,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Thirst))]
 [RequireComponent(typeof(Reproduce))]
 public class StateController : MonoBehaviour {
+    public Vector3? destination;
+
     [SerializeField]
     private State currentState;
-    public State remainState;
     [HideInInspector] public float stateTimeElapsed;
 
     private Genes genes;
@@ -44,20 +45,27 @@ public class StateController : MonoBehaviour {
     }
 
     public void transitionToState(State nextState) {
-        if (nextState != remainState) {
-            currentState = nextState;
+        currentState = nextState;
 
-            if (this.text != null) {
-                this.text.text = nextState.name;
-            }
-
-            onExitState();
+        if (this.text != null) {
+            this.text.text = nextState.name;
         }
+
+        onExitState();
     }
 
     public bool checkIfCountDownElapsed(float duration) {
         stateTimeElapsed += Time.deltaTime;
         return (stateTimeElapsed >= duration);
+    }
+
+    public Vector3 randomNavCircle(float distance) {
+        Vector3 randomDirection = UnityEngine.Random.insideUnitCircle * distance;
+
+        Debug.Log("Made a randomDirection " + randomDirection);
+
+        // Converting the Vector3 from a X Y value to only a X Z value
+        return new Vector3(randomDirection.x, this.transform.position.y, randomDirection.y);
     }
 
     private void onExitState() {
