@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/WanderAction")]
 public class WanderAction : Action {
+    private WanderActionState wanderActionState = new WanderActionState();
     private StateController lastStateController;
 
     private Vector3 randomNavCircle(StateController stateController, Vector3 origin, float distance, int layermask) {
@@ -18,16 +19,16 @@ public class WanderAction : Action {
         if (stateController.getGenes() != null) {
             this.lastStateController = stateController;
 
-            if (stateController.destination == null) {
+            if (wanderActionState.destination == null) {
                 int allLayers = -1;
-                stateController.destination = this.randomNavCircle(stateController, stateController.transform.position, stateController.getGenes().radiusOfSight, allLayers);
+                wanderActionState.destination = this.randomNavCircle(stateController, stateController.transform.position, stateController.getGenes().radiusOfSight, allLayers);
             }
 
             float step = stateController.getGenes().movementSpeed * Time.deltaTime;
-            stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)stateController.destination, step);
+            stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)wanderActionState.destination, step);
 
-            if (stateController.transform.position == stateController.destination) {
-                stateController.destination = null;
+            if (stateController.transform.position == wanderActionState.destination) {
+                wanderActionState.destination = null;
             }
         }
     }
@@ -41,10 +42,10 @@ public class WanderAction : Action {
                 UnityEditor.Handles.DrawWireDisc(this.lastStateController.transform.position, new Vector3(0, 1, 0), this.lastStateController.getGenes().radiusOfSight);
             }
 
-            //if (stateController.destination != null) {
-                //Gizmos.color = gizmoColor;
-                //Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)destination);
-            //}
+            if (wanderActionState.destination != null) {
+                Gizmos.color = gizmoColor;
+                Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)wanderActionState.destination);
+            }
         }
     }
 }

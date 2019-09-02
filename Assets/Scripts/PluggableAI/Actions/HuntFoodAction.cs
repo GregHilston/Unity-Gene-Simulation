@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/HuntFoodAction")]
 public class HuntFoodAction : Action {
+    private HuntFoodActionState huntFoodActionState = new HuntFoodActionState();
     private GameObject foodTooEat;
     private StateController lastStateController;
 
@@ -23,24 +24,24 @@ public class HuntFoodAction : Action {
                 Collider[] hitColliders = Physics.OverlapSphere(stateController.transform.position, stateController.getGenes().radiusOfSight);
                 for (int i = 0; i < hitColliders.Length; i++) {
                     if (hitColliders[i].gameObject.GetComponent<Vegetation>() != null) {
-                        stateController.destination = hitColliders[i].gameObject.transform.position;
+                        huntFoodActionState.destination = hitColliders[i].gameObject.transform.position;
                         this.foodTooEat = hitColliders[i].gameObject;
                         break;
                     }
                 }
 
                 // We failed to find food, so we'll move somewhere random only if we've arrived at that random spot already
-                if (stateController.destination == null) {
+                if (huntFoodActionState.destination == null) {
                     int allLayers = -1;
-                    stateController.destination = stateController.randomNavCircle(stateController.getGenes().radiusOfSight);
+                    huntFoodActionState.destination = stateController.randomNavCircle(stateController.getGenes().radiusOfSight);
                 }
             }
 
             float step = stateController.getGenes().movementSpeed * Time.deltaTime;
-            stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)stateController.destination, step);
+            stateController.transform.position = Vector3.MoveTowards(stateController.transform.position, (Vector3)huntFoodActionState.destination, step);
 
-            if (stateController.transform.position == stateController.destination) {
-                stateController.destination = null;
+            if (stateController.transform.position == huntFoodActionState.destination) {
+                huntFoodActionState.destination = null;
                 Destroy(this.foodTooEat);
                 this.foodTooEat = null;
 
@@ -61,10 +62,10 @@ public class HuntFoodAction : Action {
                 UnityEditor.Handles.DrawWireDisc(this.lastStateController.transform.position, new Vector3(0, 1, 0), this.lastStateController.getGenes().radiusOfSight);
             }
 
-            // if (this.destination != null) {
-                // Gizmos.color = gizmoColor;
-                // Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)destination);
-            // }
+            if (huntFoodActionState.destination != null) {
+                Gizmos.color = gizmoColor;
+                Gizmos.DrawLine(this.lastStateController.transform.position, (Vector3)huntFoodActionState.destination);
+            }
         }
     }
 }

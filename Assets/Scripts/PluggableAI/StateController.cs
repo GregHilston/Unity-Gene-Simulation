@@ -9,8 +9,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Thirst))]
 [RequireComponent(typeof(Reproduce))]
 public class StateController : MonoBehaviour {
-    public Vector3? destination;
-
     [SerializeField]
     private State currentState;
     [HideInInspector] public float stateTimeElapsed;
