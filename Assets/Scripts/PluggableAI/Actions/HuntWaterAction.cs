@@ -5,17 +5,14 @@ using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/HuntWaterAction")]
 public class HuntWaterAction : Action {
-    private GameObject waterTooDrink;
-
     public override void act(StateController stateController, ActionState actionState) {
         if (stateController.getGenes() != null) {
-
-            if (this.waterTooDrink == null) {
+            if (actionState.waterToDrink == null) {
                 Collider[] hitColliders = Physics.OverlapSphere(stateController.transform.position, stateController.getGenes().radiusOfSight);
                 for(int i = 0; i < hitColliders.Length; i++) {
                     if(hitColliders[i].gameObject.GetComponent<Water>() != null) {
                         actionState.destination = hitColliders[i].gameObject.transform.position;
-                        this.waterTooDrink = hitColliders[i].gameObject;
+                        actionState.waterToDrink = hitColliders[i].gameObject;
                         break;
                     }
                 }
@@ -31,8 +28,8 @@ public class HuntWaterAction : Action {
 
             if (stateController.transform.position == actionState.destination) {
                 actionState.destination = null;
-                Destroy(this.waterTooDrink);
-                this.waterTooDrink = null;
+                Destroy(actionState.waterToDrink);
+                actionState.waterToDrink = null;
 
                 Thirst thirst = stateController.GetComponent<Thirst>();
                 if(thirst != null) {

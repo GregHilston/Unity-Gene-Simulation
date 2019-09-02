@@ -4,4 +4,6 @@ using UnityEngine;
 
 public class ActionState {
     public Vector3? destination;
+    public GameObject waterToDrink;
+    public GameObject foodToEat;
 }
